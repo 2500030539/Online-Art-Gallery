@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArtVista Gallery - Cart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8f5;
+            color: #333;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #5b2c6f;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd6e7;
+        }
+
+        .cart-link {
+            background: #e91e63;
+            padding: 9px 15px;
+            border-radius: 20px;
+        }
+
+        .cart-link:hover {
+            color: white !important;
+            background: #c2185b;
+        }
+
+        #cartCount {
+            background: white;
+            color: #e91e63;
+            padding: 2px 7px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* HEADER */
+        .page-header {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: #5b2c6f;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #777;
+            font-size: 17px;
+        }
+
+        /* CART CONTAINER */
+        .cart-container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 20px auto 70px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* CART ITEMS */
+        .cart-items {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .cart-items h2 {
+            color: #5b2c6f;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h3 {
+            color: #5b2c6f;
+            margin-bottom: 6px;
+        }
+
+        .artist {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #e91e63;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .quantity-controls button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background: #5b2c6f;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity-controls button:hover {
+            background: #e91e63;
+        }
+
+        .quantity {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            border: none;
+            background: transparent;
+            color: #e91e63;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* SUMMARY */
+        .summary {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary h2 {
+            color: #5b2c6f;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            color: #555;
+        }
+
+        .summary-total {
+            border-top: 1px solid #ddd;
+            padding-top: 18px;
+            margin-top: 20px;
+            font-size: 21px;
+            font-weight: bold;
+            color: #5b2c6f;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 25px;
+            background: #e91e63;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #c2185b;
+            transform: translateY(-2px);
+        }
+
+        .continue-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            color: #5b2c6f;
+            font-weight: bold;
+        }
+
+        .continue-btn:hover {
+            color: #e91e63;
+        }
+
+        /* EMPTY CART */
+        .empty-cart {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .empty-cart .icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .empty-cart h2 {
+            color: #5b2c6f;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #e91e63;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2d1835;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer h2 {
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: #ddd;
+            margin: 7px 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .cart-item img {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+
+    <div class="logo">
+        🎨 ArtVista Gallery
+    </div>
+
+    <div class="nav-links">
+
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="artists.html">Artists</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+
+        <a href="cart.html" class="cart-link">
+            🛒 Cart <span id="cartCount">0</span>
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE HEADER -->
+
+<section class="page-header">
+
+    <h1>Shopping Cart</h1>
+
+    <p>Review your selected artworks before checkout.</p>
+
+</section>
+
+
+<!-- CART -->
+
+<div class="cart-container">
+
+    <!-- CART ITEMS -->
+
+    <div class="cart-items">
+
+        <h2>Your Artworks</h2>
+
+        <div id="cartItems"></div>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <h2>Order Summary</h2>
+
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">₹0</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Delivery</span>
+            <span>Free</span>
+        </div>
+
+        <div class="summary-row summary-total">
+            <span>Total</span>
+            <span id="total">₹0</span>
+        </div>
+
+        <button class="checkout-btn" onclick="checkout()">
+            Proceed to Checkout
+        </button>
+
+        <a href="gallery.html" class="continue-btn">
+            ← Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h2>🎨 ArtVista Gallery</h2>
+
+    <p>Discover beautiful artworks from talented artists.</p>
+
+    <p>© 2026 ArtVista Gallery. All Rights Reserved.</p>
+
+</footer>
+
+
+<script>
+
+    let cart = JSON.parse(localStorage.getItem("artvistaCart")) || [];
+
+
+    // UPDATE CART COUNT
+
+    function updateCartCount() {
+
+        let totalItems = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+        );
+
+        document.getElementById("cartCount").textContent = totalItems;
+    }
+
+
+    // DISPLAY CART
+
+    function displayCart() {
+
+        const cartItems = document.getElementById("cartItems");
+
+        if (cart.length === 0) {
+
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+
+                    <div class="icon">🛒</div>
+
+                    <h2>Your Cart is Empty</h2>
+
+                    <p>
+                        Looks like you haven't added any artwork yet.
+                    </p>
+
+                    <a href="gallery.html" class="shop-btn">
+                        Explore Gallery
+                    </a>
+
+                </div>
+            `;
+
+            document.getElementById("subtotal").textContent = "₹0";
+            document.getElementById("total").textContent = "₹0";
+
+            updateCartCount();
+
+            return;
+        }
+
+
+        cartItems.innerHTML = "";
+
+
+        let subtotal = 0;
+
+
+        cart.forEach((item, index) => {
+
+            let itemTotal = item.price * item.quantity;
+
+            subtotal += itemTotal;
+
+
+            cartItems.innerHTML += `
+
+                <div class="cart-item">
+
+                    <img
+                        src="${item.image}"
+                        alt="${item.title}"
+                    >
+
+                    <div class="item-details">
+
+                        <h3>${item.title}</h3>
+
+                        <p class="artist">
+                            Artist: ${item.artist}
+                        </p>
+
+                        <p class="price">
+                            ₹${item.price.toLocaleString("en-IN")}
+                        </p>
+
+
+                        <div class="quantity-controls">
+
+                            <button onclick="decreaseQuantity(${index})">
+                                −
+                            </button>
+
+                            <span class="quantity">
+                                ${item.quantity}
+                            </span>
+
+                            <button onclick="increaseQuantity(${index})">
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="remove-btn"
+                            onclick="removeItem(${index})"
+                        >
+                            ❌ Remove
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+
+        document.getElementById("subtotal").textContent =
+            "₹" + subtotal.toLocaleString("en-IN");
+
+        document.getElementById("total").textContent =
+            "₹" + subtotal.toLocaleString("en-IN");
+
+
+        updateCartCount();
+
+    }
+
+
+    // INCREASE QUANTITY
+
+    function increaseQuantity(index) {
+
+        cart[index].quantity++;
+
+        saveCart();
+
+    }
+
+
+    // DECREASE QUANTITY
+
+    function decreaseQuantity(index) {
+
+        if (cart[index].quantity > 1) {
+
+            cart[index].quantity--;
+
+        } else {
+
+            cart.splice(index, 1);
+
+        }
+
+        saveCart();
+
+    }
+
+
+    // REMOVE ITEM
+
+    function removeItem(index) {
+
+        cart.splice(index, 1);
+
+        saveCart();
+
+    }
+
+
+    // SAVE CART
+
+    function saveCart() {
+
+        localStorage.setItem(
+            "artvistaCart",
+            JSON.stringify(cart)
+        );
+
+        displayCart();
+
+    }
+
+
+    // CHECKOUT
+
+    function checkout() {
+
+        if (cart.length === 0) {
+
+            alert("Your cart is empty. Please add an artwork first.");
+
+            return;
+        }
+
+
+        alert(
+            "Thank you for choosing ArtVista Gallery! 🎨\n\n" +
+            "Checkout is currently available as a demo."
+        );
+
+    }
+
+
+    // INITIAL LOAD
+
+    displayCart();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,912 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Artists - ArtVista Gallery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f5f0;
+            color: #333;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #2c2c2c;
+            padding: 18px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f4c2c2;
+        }
+
+        /* CART */
+
+        .cart-count {
+            background: #e91e63;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 3px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .artists-header {
+            text-align: center;
+            padding: 70px 20px 45px;
+
+            background:
+                linear-gradient(
+                    rgba(248, 245, 240, 0.9),
+                    rgba(248, 245, 240, 0.9)
+                );
+        }
+
+        .artists-header h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+
+            animation: fadeDown 0.8s ease;
+        }
+
+        .artists-header p {
+            color: #666;
+            font-size: 18px;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+        /* ================= ANIMATIONS ================= */
+
+        @keyframes fadeDown {
+
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ================= ARTIST GRID ================= */
+
+        .artists-container {
+
+            width: 90%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 30px 0 80px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+        }
+
+        /* ================= ARTIST CARD ================= */
+
+        .artist-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.08);
+
+            transition: 0.4s;
+
+            animation: cardAppear 0.8s ease;
+        }
+
+        .artist-card:hover {
+
+            transform: translateY(-10px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes cardAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ================= IMAGE ================= */
+
+        .artist-image {
+
+            width: 100%;
+            height: 280px;
+
+            overflow: hidden;
+        }
+
+        .artist-image img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+        }
+
+        .artist-card:hover .artist-image img {
+
+            transform: scale(1.08);
+        }
+
+        /* ================= INFO ================= */
+
+        .artist-info {
+
+            padding: 25px 20px 30px;
+        }
+
+        .artist-info h2 {
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+        .specialization {
+
+            color: #e91e63;
+
+            font-weight: bold;
+
+            font-size: 15px;
+
+            margin-bottom: 15px;
+        }
+
+        .artist-description {
+
+            color: #777;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .artist-button {
+
+            display: inline-block;
+
+            padding: 11px 22px;
+
+            border: 1px solid #333;
+
+            border-radius: 8px;
+
+            color: #333;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+        .artist-button:hover {
+
+            background: #333;
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+
+            background: #2c2c2c;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 35px 20px;
+        }
+
+        .footer h2 {
+
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+
+            color: #ddd;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .artists-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .navbar {
+
+                padding:
+                    18px 25px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 15px;
+            }
+
+            .artists-header h1 {
+
+                font-size: 34px;
+            }
+
+            .artists-container {
+
+                grid-template-columns: 1fr;
+            }
+
+            .artist-image {
+
+                height: 300px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+
+        <div class="logo">
+
+            🎨 ArtVista Gallery
+
+        </div>
+
+
+        <ul class="nav-links">
+
+
+            <li>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="gallery.html">
+                    Gallery
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="artists.html">
+                    Artists
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="cart.html">
+
+                    🛒 Cart
+
+                    <span
+                        class="cart-count"
+                        id="cartCount">
+
+                        0
+
+                    </span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <section class="artists-header">
+
+
+        <h1>
+
+            Meet Our Artists
+
+        </h1>
+
+
+        <p>
+
+            Discover the talented people behind
+            the beautiful artworks at ArtVista Gallery.
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- ================= ARTISTS ================= -->
+
+    <section class="artists-container">
+
+
+        <!-- ARTIST 1 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+                    alt="Ananya Sharma">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Ananya Sharma
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Contemporary Painter
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Ananya creates colorful contemporary
+                    paintings inspired by nature,
+                    emotions and everyday life.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=sunset"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTIST 2 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce"
+                    alt="Riya Kapoor">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Riya Kapoor
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Floral Artist
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Riya transforms the beauty of flowers
+                    and nature into bright and expressive
+                    works of art.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=floral"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTIST 3 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+                    alt="Arjun Rao">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Arjun Rao
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Landscape Artist
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Arjun specializes in peaceful
+                    landscape artworks inspired by
+                    mountains and natural scenery.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=mountain"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTIST 4 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+                    alt="Meera Singh">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Meera Singh
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Digital Artist
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Meera combines digital creativity
+                    with artistic imagination to create
+                    unique visual experiences.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=starry"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTIST 5 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df"
+                    alt="Kavya Reddy">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Kavya Reddy
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Nature Artist
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Kavya's artwork celebrates
+                    nature, freedom and the beauty
+                    of the world around us.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=butterfly"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTIST 6 -->
+
+        <div class="artist-card">
+
+
+            <div class="artist-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+                    alt="Rahul Verma">
+
+            </div>
+
+
+            <div class="artist-info">
+
+
+                <h2>
+
+                    Rahul Verma
+
+                </h2>
+
+
+                <p class="specialization">
+
+                    Abstract Artist
+
+                </p>
+
+
+                <p class="artist-description">
+
+                    Rahul uses colors, shapes and
+                    textures to express emotions
+                    through abstract art.
+
+                </p>
+
+
+                <a
+                    href="artwork.html?id=abstract"
+                    class="artist-button">
+
+                    View Artwork
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+
+        <h2>
+
+            🎨 ArtVista Gallery
+
+        </h2>
+
+
+        <p>
+
+            © 2026 ArtVista Gallery.
+            All Rights Reserved.
+
+        </p>
+
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* ================= CART COUNT ================= */
+
+
+        function updateCartCount() {
+
+
+            let cart = JSON.parse(
+
+                localStorage.getItem(
+                    "artvistaCart"
+                )
+
+            ) || [];
+
+
+            let totalItems =
+                cart.reduce(
+
+                    (total, item) =>
+                        total + item.quantity,
+
+                    0
+
+                );
+
+
+            document.getElementById(
+                "cartCount"
+            ).innerText =
+                totalItems;
+
+        }
+
+
+        /* ================= PAGE LOAD ================= */
+
+        document.addEventListener(
+
+            "DOMContentLoaded",
+
+            function() {
+
+                updateCartCount();
+
+            }
+
+        );
+
+    </script>
+
+
+</body>
+
+</html>

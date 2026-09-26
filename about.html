@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>About Us - ArtVista Gallery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f5f0;
+            color: #333;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #2c2c2c;
+            padding: 18px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f4c2c2;
+        }
+
+        .cart-count {
+            background: #e91e63;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 3px;
+        }
+
+        /* ================= HERO ================= */
+
+        .about-hero {
+            min-height: 430px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    rgba(44, 44, 44, 0.65),
+                    rgba(44, 44, 44, 0.65)
+                ),
+                url("https://images.unsplash.com/photo-1561214115-f2f134cc4912");
+
+            background-size: cover;
+            background-position: center;
+
+            animation: fadeIn 1s ease;
+        }
+
+        .about-hero-content {
+            max-width: 800px;
+        }
+
+        .about-hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .about-hero p {
+            font-size: 19px;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+        /* ================= COMMON SECTION ================= */
+
+        .section {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        /* ================= WHO WE ARE ================= */
+
+        .who-we-are {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .who-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.12);
+        }
+
+        .who-content h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .who-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        /* ================= MISSION VISION ================= */
+
+        .mission-vision {
+            background: white;
+            padding: 70px 5%;
+        }
+
+        .mission-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .mission-card {
+            padding: 35px;
+            border-radius: 18px;
+            background: #f8f5f0;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.07);
+
+            transition: 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .mission-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .mission-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .mission-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ================= STATISTICS ================= */
+
+        .stats {
+            background: #2c2c2c;
+            color: white;
+            padding: 60px 5%;
+        }
+
+        .stats-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: bold;
+            color: #f4c2c2;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            color: #ddd;
+        }
+
+        /* ================= WHY CHOOSE US ================= */
+
+        .why-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .why-card {
+            background: white;
+            padding: 35px 25px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.07);
+
+            transition: 0.3s;
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .why-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .why-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .why-card p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: white;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .cta h2 {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #e91e63;
+            color: white;
+
+            padding: 13px 28px;
+
+            border-radius: 25px;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #c2185b;
+            transform: translateY(-3px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            background: #2c2c2c;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .footer h2 {
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            color: #ddd;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .who-we-are,
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .navbar {
+                padding: 18px 25px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .about-hero h1 {
+                font-size: 38px;
+            }
+
+            .about-hero p {
+                font-size: 16px;
+            }
+
+            .stats-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .who-image img {
+                height: 300px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🎨 ArtVista Gallery
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="gallery.html">
+                    Gallery
+                </a>
+            </li>
+
+            <li>
+                <a href="artists.html">
+                    Artists
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About Us
+                </a>
+            </li>
+
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
+
+            <li>
+                <a href="login.html">
+                    Login
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+
+                    🛒 Cart
+
+                    <span
+                        class="cart-count"
+                        id="cartCount">
+
+                        0
+
+                    </span>
+
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="about-hero">
+
+        <div class="about-hero-content">
+
+            <h1>
+                About ArtVista Gallery
+            </h1>
+
+            <p>
+                A creative space where art,
+                imagination and talented artists
+                come together.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHO WE ARE ================= -->
+
+    <section class="section">
+
+        <div class="who-we-are">
+
+            <div class="who-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1561214115-f2f134cc4912"
+                    alt="Art Gallery">
+
+            </div>
+
+            <div class="who-content">
+
+                <h2>
+                    Who We Are
+                </h2>
+
+                <p>
+                    ArtVista Gallery is an online art
+                    platform created to make beautiful
+                    artwork accessible to everyone.
+                </p>
+
+                <p>
+                    Our gallery brings together
+                    talented artists and art lovers,
+                    creating a simple and enjoyable
+                    way to discover creative work.
+                </p>
+
+                <p>
+                    From traditional paintings to
+                    digital creations and abstract art,
+                    ArtVista provides a place to explore
+                    different styles and artistic ideas.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MISSION & VISION ================= -->
+
+    <section class="mission-vision">
+
+        <div class="section-title">
+
+            <h2>
+                Our Mission & Vision
+            </h2>
+
+            <p>
+                What ArtVista aims to achieve.
+            </p>
+
+        </div>
+
+
+        <div class="mission-grid">
+
+
+            <!-- MISSION -->
+
+            <div class="mission-card">
+
+                <div class="mission-icon">
+                    🎯
+                </div>
+
+                <h2>
+                    Our Mission
+                </h2>
+
+                <p>
+                    Our mission is to provide artists
+                    with a platform to showcase their
+                    creativity while helping art lovers
+                    discover unique and inspiring
+                    artworks.
+                </p>
+
+            </div>
+
+
+            <!-- VISION -->
+
+            <div class="mission-card">
+
+                <div class="mission-icon">
+                    🌟
+                </div>
+
+                <h2>
+                    Our Vision
+                </h2>
+
+                <p>
+                    Our vision is to create a vibrant
+                    online art community where creativity
+                    is celebrated and artists can connect
+                    with people who appreciate their work.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="stats">
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    50+
+                </div>
+
+                <p>
+                    Artists
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    200+
+                </div>
+
+                <p>
+                    Artworks
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    1000+
+                </div>
+
+                <p>
+                    Art Lovers
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    25+
+                </div>
+
+                <p>
+                    Art Categories
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHY CHOOSE US ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Why Choose ArtVista?
+            </h2>
+
+            <p>
+                A simple and creative online art experience.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🎨
+                </div>
+
+                <h3>
+                    Unique Artwork
+                </h3>
+
+                <p>
+                    Explore creative artworks
+                    representing different styles,
+                    ideas and perspectives.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    👩‍🎨
+                </div>
+
+                <h3>
+                    Talented Artists
+                </h3>
+
+                <p>
+                    Discover artwork created by
+                    passionate and creative artists.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Easy Online Experience
+                </h3>
+
+                <p>
+                    Browse artwork, view details
+                    and add your favorite pieces
+                    to your shopping cart.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <h2>
+            Ready to Explore?
+        </h2>
+
+        <p>
+            Discover beautiful artworks from
+            talented artists.
+        </p>
+
+        <a
+            href="gallery.html"
+            class="cta-button">
+
+            Explore Gallery →
+
+        </a>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <h2>
+            🎨 ArtVista Gallery
+        </h2>
+
+        <p>
+            © 2026 ArtVista Gallery.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function updateCartCount() {
+
+            let cart = JSON.parse(
+                localStorage.getItem(
+                    "artvistaCart"
+                )
+            ) || [];
+
+            let totalItems =
+                cart.reduce(
+                    (total, item) =>
+                        total + item.quantity,
+                    0
+                );
+
+            document.getElementById(
+                "cartCount"
+            ).innerText = totalItems;
+
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            updateCartCount
+        );
+
+    </script>
+
+
+</body>
+
+</html>

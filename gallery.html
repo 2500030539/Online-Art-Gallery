@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>ArtVista Gallery</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f5f0;
+            color: #333;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            background: #2c2c2c;
+
+            padding: 18px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 25px;
+
+            list-style: none;
+
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #f4c2c2;
+
+        }
+
+
+        /* CART COUNT */
+
+        .cart-count {
+
+            background: #e91e63;
+
+            color: white;
+
+            padding: 3px 8px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            margin-left: 3px;
+
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .gallery-header {
+
+            text-align: center;
+
+            padding: 50px 20px 30px;
+
+        }
+
+
+        .gallery-header h1 {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .gallery-header p {
+
+            color: #666;
+
+            font-size: 17px;
+
+        }
+
+
+        /* ================= CATEGORY BUTTONS ================= */
+
+        .categories {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .category-btn {
+
+            padding: 10px 20px;
+
+            margin: 5px;
+
+            border: none;
+
+            border-radius: 20px;
+
+            background: #ddd;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .category-btn:hover {
+
+            background: #333;
+
+            color: white;
+
+        }
+
+
+        /* ACTIVE CATEGORY */
+
+        .category-btn.active {
+
+            background: #e91e63;
+
+            color: white;
+
+        }
+
+
+        /* ================= GALLERY ================= */
+
+        .gallery {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+
+            padding-bottom: 60px;
+
+        }
+
+
+        /* ================= ART CARD ================= */
+
+        .art-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.1);
+
+            transition: 0.3s;
+
+        }
+
+
+        .art-card:hover {
+
+            transform:
+                translateY(-8px);
+
+        }
+
+
+        .art-card img {
+
+            width: 100%;
+
+            height: 250px;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition: 0.3s;
+
+        }
+
+
+        .art-card:hover img {
+
+            transform: scale(1.03);
+
+        }
+
+
+        /* ================= ART INFO ================= */
+
+        .art-info {
+
+            padding: 20px;
+
+        }
+
+
+        .art-info h2 {
+
+            margin-bottom: 8px;
+
+            font-size: 21px;
+
+        }
+
+
+        .artist {
+
+            color: #777;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .price {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .button-container {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .view-button,
+        .cart-button {
+
+            flex: 1;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        /* VIEW BUTTON */
+
+        .view-button {
+
+            border: 1px solid #333;
+
+            color: #333;
+
+            text-decoration: none;
+
+            background: white;
+
+        }
+
+
+        .view-button:hover {
+
+            background: #333;
+
+            color: white;
+
+        }
+
+
+        /* CART BUTTON */
+
+        .cart-button {
+
+            border: none;
+
+            background: #e91e63;
+
+            color: white;
+
+        }
+
+
+        .cart-button:hover {
+
+            background: #c2185b;
+
+        }
+
+
+        /* ================= HIDDEN CARD ================= */
+
+        .hidden {
+
+            display: none;
+
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+
+            background: #2c2c2c;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+        }
+
+
+        .footer h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .gallery {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .navbar {
+
+                padding:
+                    18px 25px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .gallery {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .gallery-header h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+
+        <div class="logo">
+
+            🎨 ArtVista Gallery
+
+        </div>
+
+
+        <ul class="nav-links">
+
+
+            <li>
+
+                <a href="index.html">
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="gallery.html">
+
+                    Gallery
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="artists.html">
+
+                    Artists
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="about.html">
+
+                    About Us
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="contact.html">
+
+                    Contact
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="login.html">
+
+                    Login
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="cart.html">
+
+                    🛒 Cart
+
+                    <span
+                        class="cart-count"
+                        id="cartCount">
+
+                        0
+
+                    </span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <section class="gallery-header">
+
+
+        <h1>
+
+            Explore Our Gallery
+
+        </h1>
+
+
+        <p>
+
+            Discover beautiful artworks created by talented artists.
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- ================= CATEGORY BUTTONS ================= -->
+
+    <div class="categories">
+
+
+        <button
+            class="category-btn active"
+            onclick="filterArt('all', this)">
+
+            All
+
+        </button>
+
+
+        <button
+            class="category-btn"
+            onclick="filterArt('paintings', this)">
+
+            Paintings
+
+        </button>
+
+
+        <button
+            class="category-btn"
+            onclick="filterArt('sketches', this)">
+
+            Sketches
+
+        </button>
+
+
+        <button
+            class="category-btn"
+            onclick="filterArt('digital', this)">
+
+            Digital Art
+
+        </button>
+
+
+        <button
+            class="category-btn"
+            onclick="filterArt('abstract', this)">
+
+            Abstract
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ================= GALLERY ================= -->
+
+    <section class="gallery">
+
+
+        <!-- ARTWORK 1 -->
+
+        <div
+            class="art-card"
+            data-category="paintings">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5"
+                alt="Sunset Dreams">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Sunset Dreams
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Ananya
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹2,500
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=sunset"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'sunset',
+                        'Sunset Dreams',
+                        'Ananya',
+                        2500,
+                        'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTWORK 2 -->
+
+        <div
+            class="art-card"
+            data-category="paintings">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342"
+                alt="Floral Beauty">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Floral Beauty
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Riya
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹3,200
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=floral"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'floral',
+                        'Floral Beauty',
+                        'Riya',
+                        3200,
+                        'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTWORK 3 -->
+
+        <div
+            class="art-card"
+            data-category="sketches">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1549490349-8643362247b5"
+                alt="Mountain View">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Mountain View
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Arjun
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹4,000
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=mountain"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'mountain',
+                        'Mountain View',
+                        'Arjun',
+                        4000,
+                        'https://images.unsplash.com/photo-1549490349-8643362247b5'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTWORK 4 -->
+
+        <div
+            class="art-card"
+            data-category="digital">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1541961017774-22349e4a1262"
+                alt="Starry Night">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Starry Night
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Meera
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹3,500
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=starry"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'starry',
+                        'Starry Night',
+                        'Meera',
+                        3500,
+                        'https://images.unsplash.com/photo-1541961017774-22349e4a1262'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTWORK 5 -->
+
+        <div
+            class="art-card"
+            data-category="digital">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1518005020951-eccb494ad742"
+                alt="Butterfly Garden">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Butterfly Garden
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Kavya
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹2,800
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=butterfly"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'butterfly',
+                        'Butterfly Garden',
+                        'Kavya',
+                        2800,
+                        'https://images.unsplash.com/photo-1518005020951-eccb494ad742'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARTWORK 6 -->
+
+        <div
+            class="art-card"
+            data-category="abstract">
+
+
+            <img
+                src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968"
+                alt="Abstract Emotions">
+
+
+            <div class="art-info">
+
+
+                <h2>
+
+                    Abstract Emotions
+
+                </h2>
+
+
+                <p class="artist">
+
+                    By Rahul
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹4,500
+
+                </p>
+
+
+                <div class="button-container">
+
+
+                    <a
+                        href="artwork.html?id=abstract"
+                        class="view-button">
+
+                        View Artwork
+
+                    </a>
+
+
+                    <button
+                        class="cart-button"
+                        onclick="addToCart(
+                        'abstract',
+                        'Abstract Emotions',
+                        'Rahul',
+                        4500,
+                        'https://images.unsplash.com/photo-1547891654-e66ed7ebb968'
+                        )">
+
+                        Add to Cart
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+
+        <h2>
+
+            ArtVista Gallery
+
+        </h2>
+
+
+        <p>
+
+            © 2026 ArtVista Gallery.
+            All Rights Reserved.
+
+        </p>
+
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* ================= CART ================= */
+
+
+        function getCart() {
+
+            return JSON.parse(
+
+                localStorage.getItem(
+                    "artvistaCart"
+                )
+
+            ) || [];
+
+        }
+
+
+        function saveCart(cart) {
+
+            localStorage.setItem(
+
+                "artvistaCart",
+
+                JSON.stringify(cart)
+
+            );
+
+        }
+
+
+        function addToCart(
+            id,
+            title,
+            artist,
+            price,
+            image
+        ) {
+
+
+            let cart = getCart();
+
+
+            let existingItem =
+                cart.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (existingItem) {
+
+                existingItem.quantity++;
+
+            }
+
+            else {
+
+                cart.push({
+
+                    id: id,
+
+                    title: title,
+
+                    artist: artist,
+
+                    price: price,
+
+                    image: image,
+
+                    quantity: 1
+
+                });
+
+            }
+
+
+            saveCart(cart);
+
+            updateCartCount();
+
+
+            alert(
+
+                title +
+                " has been added to your cart!"
+
+            );
+
+        }
+
+
+        function updateCartCount() {
+
+
+            let cart = getCart();
+
+
+            let totalItems =
+                cart.reduce(
+
+                    (total, item) =>
+                        total + item.quantity,
+
+                    0
+
+                );
+
+
+            document.getElementById(
+                "cartCount"
+            ).innerText =
+                totalItems;
+
+        }
+
+
+
+        /* ================= CATEGORY FILTER ================= */
+
+
+        function filterArt(
+            category,
+            selectedButton
+        ) {
+
+
+            /* GET ALL ART CARDS */
+
+            let cards =
+                document.querySelectorAll(
+                    ".art-card"
+                );
+
+
+            /* REMOVE ACTIVE FROM ALL BUTTONS */
+
+            let buttons =
+                document.querySelectorAll(
+                    ".category-btn"
+                );
+
+
+            buttons.forEach(
+                function(button) {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            /* ADD ACTIVE TO SELECTED BUTTON */
+
+            selectedButton.classList.add(
+                "active"
+            );
+
+
+            /* SHOW / HIDE ARTWORKS */
+
+            cards.forEach(
+                function(card) {
+
+
+                    let cardCategory =
+                        card.getAttribute(
+                            "data-category"
+                        );
+
+
+                    if (
+                        category === "all" ||
+                        cardCategory === category
+                    ) {
+
+                        card.classList.remove(
+                            "hidden"
+                        );
+
+                    }
+
+                    else {
+
+                        card.classList.add(
+                            "hidden"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* ================= PAGE LOAD ================= */
+
+
+        document.addEventListener(
+
+            "DOMContentLoaded",
+
+            function() {
+
+                updateCartCount();
+
+            }
+
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
